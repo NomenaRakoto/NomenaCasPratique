@@ -37,11 +37,17 @@
 </div>
 <script>
   $("#add_categorie").on("click",function(){
+      var nodeAjout = $('#arbre_categorie').tree('getSelectedNode');
+      $("#ajout_parent_categorie").val(nodeAjout.id);
       $("#ModalAjoutCategorie").modal("show");
   });
   $('#EnregistrerAjoutCategorie').on("click",function(){
     var libelle = $('#ajoutCategorieLibelle').val();
     var parentId = $('#ajout_parent_categorie').val();
+    if(libelle==""){
+      alert('Veuillez remplir le champ obligatoire');
+      return;
+    }
         $.ajax({
           url: 'index.php?controleur=ControleurCategorie&action=addCategorie',
           type: 'POST',
