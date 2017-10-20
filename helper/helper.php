@@ -1,4 +1,10 @@
 <?php 
+    /**
+     * [scanDirectories Obtention des repertoire]
+     * @param  [type] $rootDir [description]
+     * @param  array  $allData [description]
+     * @return [type]          [description]
+     */
     function scanDirectories($rootDir, $allData=array()) {
         $invisibleFileNames = array(".", "..", ".htaccess", ".htpasswd");
         $dirContent = scandir($rootDir);
@@ -28,6 +34,11 @@
         $html.="</li>";
         return $html;
     }
+    /**
+     * [__autoload autoload des classes]
+     * @param  [type] $class_name [description]
+     * @return [type]             [description]
+     */
    function __autoload($class_name){
         $dir = scanDirectories($_SERVER['DOCUMENT_ROOT']);
         foreach($dir as $value){

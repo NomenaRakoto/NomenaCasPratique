@@ -1,4 +1,7 @@
-<?php 
+<?php
+/**
+ * Instanciation unique de la base de données 
+ */
  class Connexion {
  	private static $_instance;
  	private static $bdd;

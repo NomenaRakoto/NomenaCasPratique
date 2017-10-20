@@ -16,8 +16,8 @@ class ControleurFiche extends Controleur {
 	}
 
 	public function updateFiche(){
-		$id = $this->post('id');
-		$libelle = $this->post("libelle");
+		$id = $this->post('id_fiche');
+		$libelle = $this->post("libelle_fiche");
 		$description = $this->post("description");
 		$categories = $this->post("categories");
 		$this->modeleFiche->updateFiche(array("id_fiche"=>$id,"libelle_fiche"=>$libelle,"description"=>$description));
@@ -30,7 +30,6 @@ class ControleurFiche extends Controleur {
 	public function getFicheCategories(){
 		$id = $this->post('id_fiche');
 		$resultat = $this->modeleFiche->getFicheCategories($id);
-		print_r($resultat);
 		echo json_encode($resultat); 
 	}
 }

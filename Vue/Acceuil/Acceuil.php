@@ -24,9 +24,9 @@
 			<div class="col-sm-4 container_categorie">
 				<div class="subtitle"><h3 style="font-weight: bold;">Catégories</h3></div>
 				<div>
-					<button type="button" id="add_categorie" class="btn btn-primary btn-lg" ><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+					<button type="button" id="add_categorie" class="btn btn-success btn-lg" ><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
 					<button type="button" id="edit_categorie" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-edit"></span>Modifier</button>
-					<button type="button" id="delete_categorie" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-trash"></span>Supprimer</button>
+					<button type="button" id="delete_categorie" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-remove"></span>Supprimer</button>
 				</div>
 				<div class="tree" id="arbre_categorie">
 				  
@@ -35,7 +35,7 @@
 			<div class="col-sm-8 container_fiche">
 				<div class="subtitle"><h3 style="font-weight: bold;">Fiches</h3></div>
 				<div>
-					<button type="button" id="add_fiche" class="btn btn-primary btn-lg" >
+					<button type="button" id="add_fiche" class="btn btn-success btn-lg" >
 					<span class="glyphicon glyphicon-plus"></span>
 					Ajouter
 					</button>
@@ -115,15 +115,47 @@
 					data:{"id_fiche" : id},
 
 					success : function(result, status){
-			            //location.reload();
+			            location.reload();
 
 		           },
 		           error : function(result, status, err){
-			           //location.reload();
+			           location.reload();
 		           }
 				});
 			}
 		});
+
+	    //delete categorie
+		$("#delete_categorie").on("click",function(){
+
+			var node = $('#arbre_categorie').tree('getSelectedNode');
+			if(!node)
+			{
+				alert("Sélectionner une catégorie 'il vous plait");
+				return;
+			}
+			delete_categorie(node);
+		});
+		function delete_categorie(node)
+		{
+			if (confirm('Etes-vous sûr de vouloir supprimer? ')) {
+				$.ajax({
+					url: 'index.php?controleur=ControleurCategorie&action=deleteCategorie',
+					type: 'POST',
+					dataType: 'json',
+					data:{"id_categorie" : node.id},
+
+					success : function(result, status){
+			            location.reload();
+
+		           },
+
+		           error : function(result, status, err){
+			           location.reload();
+		           }
+				});
+			}
+		}
 	</script>
 
 	<?php require $_SERVER['DOCUMENT_ROOT']."/Vue/Categorie/modalAjoutCategorie.php";?>

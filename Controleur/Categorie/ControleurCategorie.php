@@ -19,7 +19,8 @@ class ControleurCategorie extends Controleur {
 		$this->modeleCategorie->updateCategorie(array("id"=>$id,"libelle"=>$libelle,"id_pere"=>$id_pere));
 	}
 	public function deleteCategorie(){
-		$id= $this->post('id');
+		$id= $this->post('id_categorie');
+		$this->modeleCategorie->deleteCategorie($id);
 	}
 }
 ?>

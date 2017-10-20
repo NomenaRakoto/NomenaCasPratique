@@ -4,6 +4,12 @@ abstract class Modele {
 	function __construct(){
 		self::$bdd = Connexion::getInstance()->getBDD();
 	}
+	/**
+	 * [executerRequete protected function pour executer une requete
+	 * @param  [type] $requete [description]
+	 * @param  [type] $params  [description]
+	 * @return [type]          [description]
+	 */
 	protected function executerRequete($requete,$params=null){
 		if($params==null){
 			$resultat = self::$bdd->query($requete);
@@ -14,6 +20,12 @@ abstract class Modele {
 		}
 		return $resultat;
 	}
+	/**
+	 * [insert protected function pour faciliter l'insertion dans la base de donnéds]
+	 * @param  [type] $table  [description]
+	 * @param  [type] $values [description]
+	 * @return [type]         [description]
+	 */
 	protected function insert($table,$values){
 		$requete = "INSERT INTO ".$table." SET ";
 		$params = [];
@@ -24,6 +36,12 @@ abstract class Modele {
 		$requete = substr($requete, 0,count($requete)-2);
 		$this->executerRequete($requete,$params);
 	}
+	/**
+	 * [update protected function pour faciliter la mise à jour]
+	 * @param  [type] $table  [description]
+	 * @param  [type] $values [description]
+	 * @return [type]         [description]
+	 */
 	protected function update($table,$values){
 		$requete = "UPDATE ".$table." SET ";
 		$primary_key_column = ""; 
@@ -41,9 +59,14 @@ abstract class Modele {
 		$params[] = $primary_key_value; 
 		$requete = substr($requete, 0,count($requete)-2);
 		$requete.=" WHERE ".$primary_key_column."=?";
-		echo $requete;
 		$this->executerRequete($requete,$params);
 	}
+	/**
+	 * [delete protected function pour la suppression]
+	 * @param  [type] $table  [description]
+	 * @param  [type] $column [description]
+	 * @return [type]         [description]
+	 */
 	protected function delete($table,$column){
 		$requete = "DELETE FROM ".$table." WHERE ";
 		$params = [];
@@ -53,6 +76,11 @@ abstract class Modele {
 		}
 		$this->executerRequete($requete,$params);
 	}
+	/**
+	 * [last_insert_id derniere id insertion]
+	 * @param  [type] $info_table [description]
+	 * @return [type]             [description]
+	 */
 	protected function last_insert_id($info_table=null){
 		if($info_table==null){
 			return self::$bdd->lastInsertId();
@@ -68,6 +96,12 @@ abstract class Modele {
 			else return null;
 		}
 	}
+	/**
+	 * [select protected function pour la recuperation des données]
+	 * @param  [type] $table  [description]
+	 * @param  [type] $column [description]
+	 * @return [type]         [description]
+	 */
 	protected function select($table,$column=null){
 		if($column==null){
 			$requete = "SELECT * FROM ".$table;

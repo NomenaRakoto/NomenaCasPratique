@@ -1,4 +1,7 @@
 <?php 
+/**
+ * Singleton obtention des configurations de l'application
+ */
  class Configuration {
  	private static $_instance;
  	private $settings;

@@ -1,4 +1,8 @@
 <?php 
+/**
+ * point d'entrée de l'application
+ * il route les requete selon le controleur et l'action demandé
+ */
 class FrontControleur{
 	private $requete;
 	function __construct(){
@@ -16,6 +20,10 @@ class FrontControleur{
 		$controleur->setRequete($this->requete);
 		return $controleur;
 	}
+	/**
+	 * [routerRequete méthode de routage]
+	 * @return [type] [description]
+	 */
 	public function routerRequete(){
 		$action = $this->creerAction();
 		$controleur = $this->creerControleur();
